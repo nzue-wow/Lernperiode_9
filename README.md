@@ -27,7 +27,17 @@ Damit habe ich ein simples Frontend und ein laufendes Backend als Vorbereitung f
 
 # 27.02.2026
 
-- [ ] Das Backendstarten und im Browser testen, schauen ob der Server läuft
-- [ ] Ich starte das Frontend und prüfe im Browser ob die Seite angezeigt wird(cargo run funktioniert hier nicht ich bekomme immer ein error)- rausfinden ob ich überhaupt das richtige mache und wieso es ein error gibt
+- [x] Das Backendstarten und im Browser testen, schauen ob der Server läuft
+- [x] Ich starte das Frontend und prüfe im Browser ob die Seite angezeigt wird(cargo run funktioniert hier nicht ich bekomme immer ein error)- rausfinden ob ich überhaupt das richtige mache und wieso es ein error gibt
 - [ ] Backend route ändern damit ich eine JSON-Antwort bekomme
-- [ ] Die Errors beim ausführen rausfinden
+- [x] Die Errors beim ausführen rausfinden
+
+Heute habe ich mein backend ein bisschen verändert, also einfacher gemacht. Dann habe ich das Backend mit dem Frontend verbunden, indem das frontend ein Request an das backend schickt und somit meine Nachricht die ich vorher ins backend geschrieben habe vom Backend zum frontend geschickt wird. Das heisst mein tracer Bullet Prototype habe ich gemacht. Es gibt jetzt auch kein error mehr wenn ich das frontend starte. Ich musste dafür das trunk paket runterladen damit ich das Frontend starten konnte. Das Frontend startet man mit `trunk serve` und das backend mit `cargo run`.
+
+# 06.03.2026
+
+- [ ] (GET methode) Frontend eine Request an Backend schicken lassen und die Daten(für Taschenrechner) holen
+- [ ] (PUT methode) Die Daten im Backend manipulieren/verändern
+- [ ] (DELETE methode) Daten im Backend löschen
+- [ ] (POST methode) Daten erstellen im Backend
+- [ ] Ich werde alle Arbeitspakete in Bezug auf die Weiterführung des Taschenrechners erstellen.
