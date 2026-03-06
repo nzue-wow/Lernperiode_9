@@ -36,8 +36,16 @@ Heute habe ich mein backend ein bisschen verändert, also einfacher gemacht. Dan
 
 # 06.03.2026
 
-- [ ] (GET methode) Frontend eine Request an Backend schicken lassen und die Daten(für Taschenrechner) holen
-- [ ] (PUT methode) Die Daten im Backend manipulieren/verändern
-- [ ] (DELETE methode) Daten im Backend löschen
-- [ ] (POST methode) Daten erstellen im Backend
-- [ ] Ich werde alle Arbeitspakete in Bezug auf die Weiterführung des Taschenrechners erstellen.
+- [x] (GET methode) Frontend eine Request an Backend schicken lassen und die Daten(für Taschenrechner) holen
+- [x] (PUT methode) Die Daten im Backend manipulieren/verändern
+- [x] (DELETE methode) Daten im Backend löschen
+- [x] (POST methode) Daten erstellen im Backend
+- [x] Ich werde alle Arbeitspakete in Bezug auf die Weiterführung des Taschenrechners erstellen.
+
+Heute habe ich alle http methoden in meinem Code realisiert. Jetzt kann man mit Set(POST) eine Zahl ins Backend hinzufügen. Mit add(PUT) kann man die Daten im Backend verändern. Mit Reset(DELETE) kann man Jetzt den Taschenrechner wieder auf 0 stellen. Und mit GET refresh(GET) kann man die aktuelle zahl aus dem backend holen. Der Taschenrechner jetzt testet bis jetzt nur ob alle Methoden funktionieren. Also bis jetzt addiert er nur die zahlen die eingegeben werden.
+
+# 13.03.2026
+- [ ] Alle operatoren zum Taschenrechner hinzufügen(+, -, *, /)
+- [ ] Man soll mehrere Zahlen können eingeben
+- [ ] Man soll ergebnisse Speichern können
+- [ ] Das Design des Rechners funktional und visuell schön machen
