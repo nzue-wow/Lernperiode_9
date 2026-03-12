@@ -45,7 +45,16 @@ Heute habe ich mein backend ein bisschen verändert, also einfacher gemacht. Dan
 Heute habe ich alle http methoden in meinem Code realisiert. Jetzt kann man mit Set(POST) eine Zahl ins Backend hinzufügen. Mit add(PUT) kann man die Daten im Backend verändern. Mit Reset(DELETE) kann man Jetzt den Taschenrechner wieder auf 0 stellen. Und mit GET refresh(GET) kann man die aktuelle zahl aus dem backend holen. Der Taschenrechner jetzt testet bis jetzt nur ob alle Methoden funktionieren. Also bis jetzt addiert er nur die zahlen die eingegeben werden.
 
 # 13.03.2026
-- [ ] Alle operatoren zum Taschenrechner hinzufügen(+, -, *, /)
+- [x] Alle operatoren zum Taschenrechner hinzufügen(+, -, *, /)
 - [ ] Man soll mehrere Zahlen können eingeben
-- [ ] Man soll ergebnisse Speichern können
-- [ ] Das Design des Rechners funktional und visuell schön machen
+- [x] Man soll ergebnisse Speichern können
+- [x] Das Design des Rechners funktional und visuell schön machen
+
+ Heute habe ich den Taschenrechner Prototypen erweitert. Ich habe die Operatoren eingebaut und man kann auch die Zahlen Speichern. Was nochnicht geht ist mehrere Zahlen gleichzeitig einzugeben. Man kann jetzt ein Zahl eingeben und dann den Operator dazu auswählen. Sobald das gemacht wird, wird eine request ans backend geschickt und jenachdem welcher Operator es ist, ist es ein anderer Rechnungsweg. Dann habe ich auch das Aussehen geändert das es jetzt mehr nach einem Tschenrechner aussieht. 
+
+
+## 20.03.2026
+- [ ] Man soll die Zahlen gleichzeitg aufschreiben können also: 1 + 1. Dann soll man enter drücken und dann soll das ergebnis kommen
+- [ ] Die Zahlen in einer Datenbak speichern(nicht nur im arbeitsspeicher)
+- [ ] Eine CSS datei machen damit der code besser aussieht
+- [ ] Neuer Operator hinzufügen `^2`
