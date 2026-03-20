@@ -1,71 +1,97 @@
-use axum::{extract::State, routing::{get, put, delete, post}, Json, Router};
+use axum::{
+    routing::{get, post},
+    extract::State,
+    Json, Router,
+};
 use serde::{Deserialize, Serialize};
-use std::sync::{Arc, RwLock};
+use sqlx::sqlite::SqlitePool;
+use std::sync::Arc;
 use tower_http::cors::CorsLayer;
 
 #[derive(Serialize, Deserialize, Clone)]
-struct CalcOperation {
-    value: f64,
-    operator: Option<String>, // "+", "-", "*", "/"
-}
-
-#[derive(Serialize, Deserialize, Clone)]
-struct FullState {
+struct CalculatorState {
     current_value: f64,
-    history: Vec<f64>,
+    history: Vec<String>,
 }
 
-type SharedState = Arc<RwLock<FullState>>;
+struct AppState {
+    db: SqlitePool,
+}
+
+#[derive(Deserialize)]
+struct CalcRequest {
+    expression: String,
+}
 
 #[tokio::main]
 async fn main() {
-    let shared_state = Arc::new(RwLock::new(FullState {
-        current_value: 0.0,
-        history: Vec::new(),
-    }));
+    let db_url = "sqlite://rechner.db?mode=rwc";
+    let pool = SqlitePool::connect(&db_url).await.expect("Konnte SQLite nicht laden");
+
+    // Tabelle erstellen
+    sqlx::query("CREATE TABLE IF NOT EXISTS CalculatorState (id INTEGER PRIMARY KEY, current_value REAL, history TEXT)")
+        .execute(&pool).await.unwrap();
+    
+    // Startwert
+    sqlx::query("INSERT OR IGNORE INTO CalculatorState (id, current_value, history) VALUES (1, 0.0, '[]')")
+        .execute(&pool).await.unwrap();
+
+    let shared_state = Arc::new(AppState { db: pool });
 
     let app = Router::new()
-        .route("/calc", get(get_state))
-        .route("/calc", put(calculate)) // Rechnen
-        .route("/calc", post(save_current)) // Ergebnis in Historie speichern
-        .route("/calc", delete(reset_all))
-        .with_state(shared_state)
-        .layer(CorsLayer::permissive());
+        .route("/calc", post(calculate))
+        .route("/state", get(get_state))
+        .route("/reset", post(reset_db))
+        .layer(CorsLayer::permissive())
+        .with_state(shared_state);
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:30000").await.unwrap();
+    println!("✅ Backend läuft auf http://127.0.0.1:30000 (SQLite Modus)");
+    
+    // So startet man den Server in der neuen Axum-Version!
     axum::serve(listener, app).await.unwrap();
 }
 
-async fn get_state(State(state): State<SharedState>) -> Json<FullState> {
-    Json(state.read().unwrap().clone())
+async fn get_state(State(state): State<Arc<AppState>>) -> Json<CalculatorState> {
+    // query statt query! benutzen
+    let row = sqlx::query("SELECT current_value, history FROM CalculatorState WHERE id = 1")
+        .fetch_one(&state.db)
+        .await
+        .unwrap();
+
+    // Bei der normalen query-Funktion greifen wir über .get() auf die Spalten zu
+    use sqlx::Row; 
+    Json(CalculatorState {
+        current_value: row.get("current_value"),
+        history: serde_json::from_str(&row.get::<String, _>("history")).unwrap_or_default(),
+    })
 }
 
-async fn calculate(State(state): State<SharedState>, Json(payload): Json<CalcOperation>) -> Json<FullState> {
-    let mut s = state.write().unwrap();
-    if let Some(op) = payload.operator {
-        match op.as_str() {
-            "+" => s.current_value += payload.value,
-            "-" => s.current_value -= payload.value,
-            "*" => s.current_value *= payload.value,
-            "/" => if payload.value != 0.0 { s.current_value /= payload.value },
-            _ => s.current_value = payload.value,
-        }
-    } else {
-        s.current_value = payload.value;
-    }
-    Json(s.clone())
+async fn calculate(State(state): State<Arc<AppState>>, Json(req): Json<CalcRequest>) -> Json<CalculatorState> {
+    let res = meval::eval_str(&req.expression).unwrap_or(0.0);
+    
+    let current = get_state(State(state.clone())).await;
+    let mut new_history = current.history.clone();
+    new_history.push(format!("{} = {}", req.expression, res));
+    if new_history.len() > 5 { new_history.remove(0); }
+
+    let history_json = serde_json::to_string(&new_history).unwrap();
+
+    // query statt query! und die ? als Platzhalter für SQLite
+    sqlx::query("UPDATE CalculatorState SET current_value = ?, history = ? WHERE id = 1")
+        .bind(res)
+        .bind(history_json)
+        .execute(&state.db)
+        .await
+        .unwrap();
+
+    Json(CalculatorState { current_value: res, history: new_history })
 }
 
-async fn save_current(State(state): State<SharedState>) -> Json<FullState> {
-    let mut s = state.write().unwrap();
-    let val = s.current_value;
-    s.history.push(val);
-    Json(s.clone())
-}
-
-async fn reset_all(State(state): State<SharedState>) -> Json<FullState> {
-    let mut s = state.write().unwrap();
-    s.current_value = 0.0;
-    s.history.clear();
-    Json(s.clone())
+async fn reset_db(State(state): State<Arc<AppState>>) -> Json<CalculatorState> {
+    sqlx::query("UPDATE CalculatorState SET current_value = 0.0, history = '[]' WHERE id = 1")
+        .execute(&state.db)
+        .await
+        .unwrap();
+    Json(CalculatorState { current_value: 0.0, history: vec![] })
 }
