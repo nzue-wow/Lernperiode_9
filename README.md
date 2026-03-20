@@ -53,8 +53,14 @@ Heute habe ich alle http methoden in meinem Code realisiert. Jetzt kann man mit 
  Heute habe ich den Taschenrechner Prototypen erweitert. Ich habe die Operatoren eingebaut und man kann auch die Zahlen Speichern. Was nochnicht geht ist mehrere Zahlen gleichzeitig einzugeben. Man kann jetzt ein Zahl eingeben und dann den Operator dazu auswählen. Sobald das gemacht wird, wird eine request ans backend geschickt und jenachdem welcher Operator es ist, ist es ein anderer Rechnungsweg. Dann habe ich auch das Aussehen geändert das es jetzt mehr nach einem Tschenrechner aussieht. 
 
 
-## 20.03.2026
-- [ ] Man soll die Zahlen gleichzeitg aufschreiben können also: 1 + 1. Dann soll man enter drücken und dann soll das ergebnis kommen
-- [ ] Die Zahlen in einer Datenbak speichern(nicht nur im arbeitsspeicher)
-- [ ] Eine CSS datei machen damit der code besser aussieht
+# 20.03.2026
+- [x] Man soll die Zahlen gleichzeitg aufschreiben können also: 1 + 1. Dann soll man enter drücken und dann soll das ergebnis kommen
+- [x] Die Zahlen in einer Datenbak speichern(nicht nur im arbeitsspeicher)
+- [x] Eine CSS datei machen damit der code besser aussieht
 - [ ] Neuer Operator hinzufügen `^2`
+
+Heute Habe ich versucht mein Programm mit SMMS SQL zu verbinden. Leider hat das nicht funktioniert wegen des Logins. Dann habe ich auf SQLlite gewechselt das dann funktioniert hat. Jetzt werden die Ergebnisse gespeichert. Jetzt funktioniert der Taschenrechner auch richtig weil. Man mehrere Zahlen eingeben und ausrechen. Ausserdem habe ich das Design noch komplett geändert so das es für alles einen Button hat damit man es nicht selber schreiben muss.
+
+# 27.03.2026
+- [ ] Den ganzen Code anschauen, meine doku anschauen(schauen was alles schief gegangen ist im Projekt) und damit ein Tutorial machen
+- [ ] Den Code ausbessern das man ich auch versteht(Html in eigenes dokument, kommentäre)
