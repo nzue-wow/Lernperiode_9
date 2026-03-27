@@ -62,5 +62,5 @@ Heute habe ich alle http methoden in meinem Code realisiert. Jetzt kann man mit 
 Heute Habe ich versucht mein Programm mit SMMS SQL zu verbinden. Leider hat das nicht funktioniert wegen des Logins. Dann habe ich auf SQLlite gewechselt das dann funktioniert hat. Jetzt werden die Ergebnisse gespeichert. Jetzt funktioniert der Taschenrechner auch richtig weil. Man mehrere Zahlen eingeben und ausrechen. Ausserdem habe ich das Design noch komplett geändert so das es für alles einen Button hat damit man es nicht selber schreiben muss.
 
 # 27.03.2026
-- [ ] Den ganzen Code anschauen, meine doku anschauen(schauen was alles schief gegangen ist im Projekt) und damit ein Tutorial machen
-- [ ] Den Code ausbessern das man ich auch versteht(Html in eigenes dokument, kommentäre)
+- [x] Den ganzen Code anschauen, meine doku anschauen(schauen was alles schief gegangen ist im Projekt) und damit ein Tutorial machen
+- [x] Den Code ausbessern das man ich auch versteht(Html in eigenes dokument, kommentäre)
