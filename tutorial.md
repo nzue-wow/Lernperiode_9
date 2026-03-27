@@ -422,6 +422,7 @@ History example:
 5*2 = 10
 10-4 = 6
 ```
+<img width="782" height="1430" alt="image" src="https://github.com/user-attachments/assets/28797915-e784-4306-a976-d1dee5926bf4" />
 
 The calculator stores the **last 5 operations**.
 
@@ -573,6 +574,6 @@ Possible improvements:
 * Add **scientific functions**
 * Deploy the backend online
 
-```
+
 
 ---
